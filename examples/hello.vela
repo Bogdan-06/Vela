@@ -1,0 +1,5 @@
+# Hello from Vela. No C source translation.
+craft main() -> num:
+    keep message = "Hello from Vela!"
+    say message
+    give 0

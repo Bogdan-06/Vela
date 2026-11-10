@@ -1,0 +1,13 @@
+# Local module: functions are available only through an explicit import.
+# gcd accepts nonnegative inputs; this example does not expose a general API.
+craft gcd(a: num, b: num) -> num:
+    change left = a
+    change right = b
+    repeat right != 0:
+        keep remainder = left % right
+        left = right
+        right = remainder
+    give left
+
+craft square(n: num) -> num:
+    give n * n

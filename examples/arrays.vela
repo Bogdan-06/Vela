@@ -1,0 +1,23 @@
+craft replaced(input: [num; 4], index: num, value: num) -> [num; 4]:
+    change result = input
+    result[index] = value
+    give result
+
+craft main() -> num:
+    keep original = [10, 20, 30, 40]
+    change copy = replaced(original, 1, 99)
+    say "Original and independent copy:"
+    say original[1]
+    say copy[1]
+    say "Array total:"
+    change total = 0
+    change i = 0
+    repeat i < len(copy):
+        total = total + copy[i]
+        i = i + 1
+    say total
+    keep flags = [true; 4]
+    say flags[3]
+    keep names = ["Vela", "native"]
+    say names[0]
+    give 0

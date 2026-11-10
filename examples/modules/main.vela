@@ -1,0 +1,8 @@
+use "math.vela" as math
+
+craft main() -> num:
+    say "gcd(84, 30) ="
+    say math.gcd(84, 30)
+    say "square(12) ="
+    say math.square(12)
+    give 0

@@ -1,0 +1,18 @@
+# Whole-value ownership: duplicate explicitly, transfer into functions.
+craft total(values: buffer) -> num:
+    change result = 0
+    change i = 0
+    repeat i < len(values):
+        result = result + values[i]
+        i = i + 1
+    give result
+
+craft main() -> num:
+    change values = buffer(3)
+    values[1] = 42
+    keep duplicate = buffer_copy(values)
+    say "Owned buffer total:"
+    say total(duplicate)
+    say "Original retained:"
+    say values[1]
+    give 0

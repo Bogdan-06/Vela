@@ -1,0 +1,17 @@
+[package]
+name = "vela"
+version = "0.7.0"
+edition = "2021"
+description = "Experimental Vela native compiler"
+
+[lib]
+name = "vela"
+path = "src/lib.rs"
+
+[[bin]]
+name = "vela"
+path = "src/main.rs"
+
+[profile.release]
+lto = true
+codegen-units = 1

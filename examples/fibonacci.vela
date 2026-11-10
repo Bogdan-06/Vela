@@ -1,0 +1,9 @@
+craft fib(n: num) -> num:
+    when n <= 1:
+        give n
+    give fib(n - 1) + fib(n - 2)
+
+craft main() -> num:
+    say "fib(10) ="
+    say fib(10)
+    give 0

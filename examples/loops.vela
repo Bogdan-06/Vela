@@ -1,0 +1,17 @@
+craft sum_to(limit: num) -> num:
+    change total = 0
+    change i = 1
+    repeat i <= limit:
+        total = total + i
+        i = i + 1
+    give total
+
+craft main() -> num:
+    keep answer = sum_to(100)
+    say "Sum from 1 to 100:"
+    say answer
+    when answer == 5050:
+        say "Correct!"
+    otherwise:
+        say "Wrong!"
+    give 0

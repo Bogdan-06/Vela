@@ -1,0 +1,28 @@
+record Point:
+    x: num
+    y: num
+
+record Sample:
+    point: Point
+    history: [num; 3]
+    enabled: flag
+    label: text
+
+craft moved(input: Sample, amount: num) -> Sample:
+    change result = input
+    result.point.x = result.point.x + amount
+    result.history[1] = 42
+    give result
+
+craft main() -> num:
+    keep original = Sample { label: "original", history: [10, 20, 30], point: Point { y: 9, x: 7 }, enabled: true }
+    keep updated = moved(original, 1)
+    say "Independent record copies:"
+    say original.point.x
+    say updated.point.x
+    say original.history[1]
+    say updated.history[1]
+    say updated.enabled
+    say updated.label
+    say len(updated.history)
+    give 0

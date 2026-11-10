@@ -1,0 +1,16 @@
+craft permitted(value: num) -> flag:
+    give value % 2 == 0
+
+craft main() -> num:
+    change i = 0
+    change total = 0
+    repeat i < 6:
+        keep selected = (i < 2 and permitted(i)) or (i >= 4 and permitted(i))
+        when selected:
+            total = total + i
+        otherwise:
+            total = total - i
+        i = i + 1
+    say "Control-flow total:"
+    say total
+    give 0

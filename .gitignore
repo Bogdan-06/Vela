@@ -1,0 +1,5 @@
+/target/
+.vela-cache/
+*.exe
+*.o
+*.s
