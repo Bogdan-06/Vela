@@ -1,6 +1,7 @@
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitCode};
 use std::time::Instant;
+use std::{any::Any, panic};
 use vela::{
     codegen::Target,
     driver::{self, BuildOptions, Scratch},
@@ -198,11 +199,23 @@ fn execute(args: Args) -> Result<u8, String> {
     );
     Ok(0)
 }
+fn panic_message(payload: &(dyn Any + Send)) -> String {
+    payload
+        .downcast_ref::<&str>()
+        .copied()
+        .or_else(|| payload.downcast_ref::<String>().map(String::as_str))
+        .unwrap_or("unknown panic payload")
+        .to_owned()
+}
 fn main() -> ExitCode {
-    let result = args().and_then(|args| match args {
-        Some(args) => execute(args),
-        None => Ok(0),
-    });
+    let result = panic::catch_unwind(|| {
+        args().and_then(|args| match args {
+            Some(args) => execute(args),
+            None => Ok(0),
+        })
+    })
+    .map_err(|payload| format!("internal compiler error: {}", panic_message(&*payload)))
+    .and_then(|result| result);
     match result {
         Ok(code) => ExitCode::from(code),
         Err(message) => {
